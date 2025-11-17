@@ -12,12 +12,15 @@ from scipy.interpolate import griddata
 wt_new = 0.9
 wt_old = 1.0 - wt_new
 resoultion_divider = 10
+ntot = resoultion_divider*resoultion_divider
+ntotw = 9*(ntot//10)  # if 90% water, it is water ;)
 water = 17
 
 lcz_tif_file = 'lcz_v3.tif'
 clm_urban_file = 'lcz_mksrf_urban.nc'
 countries_file = 'countries_remap.nc'
 urbparam_file = 'URBPARM_LCZ.TBL'
+
 
 state_old_region = {
    'AF0' : 24, 'AL0' : 11, 'DZ0' : 16, 'AS0' : 21, 'AD0' : 33, 'AO0' :  4,
@@ -68,7 +71,7 @@ class_old_class = {
         'Comp High-Rise'     : 1,
         'Comp Mid-Rise'      : 2,
         'Comp Low-Rise'      : 2,
-        'Op H-Rise'          : 2,
+        'Op H-Rise'          : 1,
         'Op M-Rise'          : 2,
         'Op L-Rise'          : 3,
         'Lightweight L-Rise' : 3,
@@ -545,9 +548,6 @@ old_alb_perroad = ds2.ALB_PERROAD
 alb_perroad = np.zeros((np.size(xradspc), np.size(xradfrq),
                         np.size(xregion), np.size(xdensity)))
 alb_perroad = getval_new(old_alb_perroad,alb_perroad)
-
-ntot = resoultion_divider*resoultion_divider
-ntotw = 3*(ntot//4)  # if 75% water, it is water ;)
 
 ht_roof = xr.DataArray(name='HT_ROOF', data = ht_roof,
                 dims = ['region','density_class'],
