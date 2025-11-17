@@ -379,7 +379,7 @@ ny,nx = np.shape(urban_input)
 ds = ds.chunk({'x': nx, 'y': resoultion_divider})
 
 ds2 = xr.open_dataset('mksrf_urban.nc', mode='r')
-nlevurb = ds2.dims['nlevurb']
+nlevurb = ds2.sizes['nlevurb']
 
 nplon = ds.x.to_numpy( )
 nplat = ds.y.to_numpy( )
