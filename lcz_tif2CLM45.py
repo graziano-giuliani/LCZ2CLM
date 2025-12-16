@@ -96,8 +96,9 @@ def getval_old_new(x,y):
                                   class_old_class[cla]-1])
             j = j + 1
         i = i + 1
-    avg = np.mean(yy[yy > -998.0])
-    yy[:] = np.where(yy < -998.0, avg, yy)
+    good = np.logical_and((yy > -998.0), (yy < 1.E30))
+    avg = np.mean(yy[good])
+    yy[:] = np.where(good, yy, avg)
     return yy
 
 def getval_new(x,y):
@@ -111,8 +112,9 @@ def getval_new(x,y):
                                  class_old_class[cla]-1]
             j = j + 1
         i = i + 1
-    avg = np.mean(yy[yy > -998.0])
-    yy[:] = np.where(yy < -998.0, avg, yy)
+    good = np.logical_and((yy > -998.0), (yy < 1.E30))
+    avg = np.mean(yy[good])
+    yy[:] = np.where(good, yy, avg)
     return yy
 
 def _griddata(arr, xi, method: str):
